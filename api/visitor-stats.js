@@ -16,10 +16,19 @@ module.exports = async (req, res) => {
 
   try {
     await connectDB();
+    const { startDate, endDate } = req.query;
+    const matchQuery = { event: 'chat_opened' };
 
-    const totalVisitors = await Visitor.countDocuments({ event: 'chat_opened' });
+    if (startDate && endDate) {
+      matchQuery.timestamp = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate),
+      };
+    }
+
+    const totalVisitors = await Visitor.countDocuments(matchQuery);
     const locations = await Visitor.aggregate([
-      { $match: { event: 'chat_opened' } },
+      { $match: matchQuery },
       {
         $group: {
           _id: {
@@ -45,7 +54,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json({ totalVisitors, locations });
   } catch (error) {
-    console.error('Error fetching visitor stats:', error);
-    res.status(500).json({ error: 'Failed to fetch stats' });
+    console.error('Error fetching visitor stats:', error.message);
+    res.status(500).json({ error: 'Failed to fetch stats', details: error.message });
   }
 };
