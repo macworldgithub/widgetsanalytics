@@ -68,9 +68,12 @@ module.exports = async (req, res) => {
 
   try {
     await connectDB();
-    const { widgetId } = req.params; // Use req.params for dynamic route
+
+    // Extract widgetId from req.params or req.query
+    const widgetId = req.params?.widgetId || req.query?.widgetId;
     const { startDate, endDate } = req.query;
 
+    console.log('Request params:', req.params, 'Query:', req.query);
     console.log('Fetching stats for widgetId:', widgetId, 'startDate:', startDate, 'endDate:', endDate);
 
     if (!widgetId) {
