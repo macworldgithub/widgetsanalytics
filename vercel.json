@@ -8,6 +8,11 @@
   ],
   "routes": [
     {
+      "src": "/api/hello",
+      "methods": ["GET", "OPTIONS"],
+      "dest": "api/hello.js"
+    },
+    {
       "src": "/api/track-visitor",
       "methods": ["POST", "OPTIONS"],
       "dest": "api/track-visitor.js"
