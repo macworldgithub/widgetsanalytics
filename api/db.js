@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 let conn = null;
 
-const uri = process.env.MONGODB_URI || 'mongodb+srv://macworldgithub:SirBilal1234@cluster0.kaqy2pl.mongodb.net/chatbot';
+const uri = 'mongodb+srv://macworldgithub:SirBilal1234@cluster0.kaqy2pl.mongodb.net/chatbot';
 
 const connectDB = async () => {
   if (conn) {
