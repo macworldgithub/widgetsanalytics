@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/track-visitor",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "api/track-visitor.js"
+    },
+    {
+      "src": "/api/visitor-stats",
+      "methods": ["GET", "OPTIONS"],
+      "dest": "api/visitor-stats.js"
+    },
+    {
+      "src": "/api/visitor-stats/(.*)",
+      "methods": ["GET", "OPTIONS"],
+      "dest": "api/visitor-stats/[widgetId].js"
+    }
+  ]
+}
